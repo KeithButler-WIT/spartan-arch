@@ -21,7 +21,7 @@ fi
 echo 'Setting up timezone'
 timedatectl set-ntp true
 ln -s /usr/share/zoneinfo/Europe/Dublin /etc/localtime
-timedatectl set-timezone Europe/Dublin
+#timedatectl set-timezone Europe/Dublin
 hwclock --systohc
 
 # setup locale
