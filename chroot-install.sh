@@ -34,6 +34,14 @@ echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 echo 'Setting up hostname'
 echo 'artix' > /etc/hostname
 
+# setup hosts
+echo '127.0.0.1        localhost
+::1              localhost
+127.0.1.1        artix.localdomain        artix' > /etc/hosts
+wget https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts -O blockedHosts
+sed -i 1,39d blockedHosts
+cat blockedHosts >> /etc/hosts
+
 # build
 echo 'Building'
 mkinitcpio -p linux
