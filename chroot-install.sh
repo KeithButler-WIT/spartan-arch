@@ -32,7 +32,7 @@ echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 
 # setup hostname
 echo 'Setting up hostname'
-echo 'artix-virtualbox' > /etc/hostname
+echo 'artix' > /etc/hostname
 
 # build
 echo 'Building'
