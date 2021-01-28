@@ -37,8 +37,3 @@ Once the VM is booted, log in as your user and call `startx` to start Xorg.
 - ssh-keys generation
 - Detect if running in a vm
 - Append ad domain name blocker list to /etc/hosts
-```shell
-wget https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts -O blockedHosts
-sed -i 1,39d blockedHosts
-cat blockedHosts >> /etc/hosts
-```
