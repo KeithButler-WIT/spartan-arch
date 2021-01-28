@@ -49,19 +49,29 @@ mkinitcpio -p linux
 # install bootloader
 echo 'Installing bootloader'
 pacman -S grub os-prober efibootmgr --noconfirm
-grub-install --recheck /dev/sda
+if [ -d /sys/firmware/efi/ ]
+then
+    grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+else
+    grub-install --recheck /dev/sda
+fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # install Xorg
 echo 'Installing Xorg'
 pacman -S --noconfirm xorg xorg-xinit xterm
 
+# check if physical machine
+#pacman -S --noconfirm facter
+#if [facter virtual != 'physical']
+#then
 # install virtualbox guest modules
 echo 'Installing VB-guest-modules'
 pacman -S --noconfirm virtualbox-guest-modules-artix virtualbox-guest-utils
 
 # vbox modules
 echo 'vboxsf' > /etc/modules-load.d/vboxsf.conf
+#fi
 
 # install dev envt.
 echo 'Installing dev environment'
