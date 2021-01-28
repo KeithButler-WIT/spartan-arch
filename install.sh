@@ -33,12 +33,26 @@ fi
 # set time
 #timedatectl set-ntp true
 
-#partiton disk
-parted --script /dev/sda mklabel msdos mkpart primary ext4 0% 87% mkpart primary linux-swap 87% 100%
-mkfs.ext4 /dev/sda1
-mkswap /dev/sda2
-swapon /dev/sda2
-mount /dev/sda1 /mnt
+# partitioning requirements
+pacman -S --noconfirm parted
+
+# partiton disk
+if [ -d /sys/firmware/efi/ ]
+then
+    parted --script /dev/sda mklabel gpt mkpart primary fat32 550MB set boot mkpart primary linux-swap 4Gb mkpart primary ext4 100%
+    mkfs.fat -F 32 /dev/sda1
+	fatlabel /dev/sda1 BOOT
+    mkswap /dev/sda2
+    swapon /dev/sda2
+	mkfs.ext4 -L ROOT /dev/sda3
+    mount /dev/sda3 /mnt
+else
+    parted --script /dev/sda mklabel msdos mkpart primary ext4 0% 87% mkpart primary linux-swap 87% 100%
+    mkfs.ext4 /dev/sda1
+    mkswap /dev/sda2
+    swapon /dev/sda2
+    mount /dev/sda1 /mnt
+fi
 
 # basestrap
 basestrap /mnt base base-devel runit elogind-runit
