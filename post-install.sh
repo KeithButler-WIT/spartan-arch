@@ -117,7 +117,7 @@ go get -u github.com/jstemmer/gotags
 
 # temporary workaround
 cd
-wget https://raw.githubusercontent.com/abrochard/spartan-arch/master/startx.sh -O startx.sh
+wget https://raw.githubusercontent.com/KeithButler-WIT/spartan-artix-runit/master/startx.sh -O startx.sh
 chmod +x startx.sh
 echo 'alias startx=~/startx.sh' >> ~/.zshrc
 
