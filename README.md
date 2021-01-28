@@ -1,4 +1,4 @@
-# spartan-arch
+# spartan-artix-runit
 
 This is a set of scripts designed to automate the creation of a minimal VM running Arch Linux and i3/Emacs as a Windows manager. This VM can be used as a file editor for the  host via folder sharing and as a development environment. Currently, the VM costs about 90MB of RAM to run.
 
