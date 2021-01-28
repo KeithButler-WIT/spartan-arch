@@ -40,8 +40,11 @@ mkswap /dev/sda2
 swapon /dev/sda2
 mount /dev/sda1 /mnt
 
-# pacstrap
-pacstrap /mnt base
+# basestrap
+basestrap /mnt base base-devel runit elogind-runit
+
+# Kernel
+basestrap /mnt linux linux-firmware
 
 # fstab
 genfstab -U /mnt >> /mnt/etc/fstab
@@ -49,8 +52,8 @@ echo "org /home/$user/org vboxsf uid=$user,gid=wheel,rw,dmode=700,fmode=600,nofa
 echo "workspace /home/$user/workspace vboxsf uid=$user,gid=wheel,rw,dmode=700,fmode=600,nofail 0 0" >> /mnt/etc/fstab
 
 # chroot
-wget https://raw.githubusercontent.com/abrochard/spartan-arch/master/chroot-install.sh -O /mnt/chroot-install.sh
-arch-chroot /mnt /bin/bash ./chroot-install.sh $user $password $fast
+wget https://raw.githubusercontent.com/KeithButler-WIT/spartan-arch/master/chroot-install.sh -O /mnt/chroot-install.sh
+artix-chroot /mnt /bin/bash ./chroot-install.sh $user $password $fast
 
 # reboot
 umount /mnt
