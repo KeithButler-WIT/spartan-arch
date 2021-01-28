@@ -20,8 +20,8 @@ fi
 # setup timezone
 echo 'Setting up timezone'
 timedatectl set-ntp true
-ln -s /usr/share/zoneinfo/America/New_York /etc/localtime
-timedatectl set-timezone America/New_York
+ln -s /usr/share/zoneinfo/Europe/Dublin /etc/localtime
+timedatectl set-timezone Europe/Dublin
 hwclock --systohc
 
 # setup locale
@@ -32,7 +32,7 @@ echo 'LANG=en_US.UTF-8' > /etc/locale.conf
 
 # setup hostname
 echo 'Setting up hostname'
-echo 'arch-virtualbox' > /etc/hostname
+echo 'artix-virtualbox' > /etc/hostname
 
 # build
 echo 'Building'
@@ -40,8 +40,8 @@ mkinitcpio -p linux
 
 # install bootloader
 echo 'Installing bootloader'
-pacman -S grub --noconfirm
-grub-install --target=i386-pc /dev/sda
+pacman -S grub os-prober efibootmgr --noconfirm
+grub-install --recheck /dev/sda
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # install Xorg
@@ -83,10 +83,10 @@ echo $user:$password | chpasswd
 echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 
 # enable services
-systemctl enable ntpdate.service
+#systemctl enable ntpdate.service
 
 # preparing post install
-wget https://raw.githubusercontent.com/abrochard/spartan-arch/master/post-install.sh -O /home/$user/post-install.sh
+wget https://raw.githubusercontent.com/KeithButler-WIT/spartan-arch/master/post-install.sh -O /home/$user/post-install.sh
 chown $user:$user /home/$user/post-install.sh
 
 echo 'Done'
