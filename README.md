@@ -35,3 +35,4 @@ Once the VM is booted, log in as your user and call `startx` to start Xorg.
 ## TODO
 - dhcpcd on boot
 - ssh-keys generation
+- Detect if running in a vm
