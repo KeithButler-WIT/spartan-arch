@@ -99,12 +99,18 @@ mkdir /home/$user/workspace
 chown $user:$user /home/$user/workspace
 echo $user:$password | chpasswd
 echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
+echo "permit root
+permit $user as root" >> /etc/doas.conf
 
 # enable services
 #systemctl enable ntpdate.service
 
 # preparing post install
-wget https://raw.githubusercontent.com/KeithButler-WIT/spartan-artix-runit/master/post-install.sh -O /home/$user/post-install.sh
+#wget https://raw.githubusercontent.com/KeithButler-WIT/spartan-artix-runit/master/post-install.sh -O /home/$user/post-install.sh
+#chown $user:$user /home/$user/post-install.sh
+
+# using larbs as post install
+wget https://raw.githubusercontent.com/KeithButler-WIT/LARBS/master/larbs.sh -O post-install.sh
 chown $user:$user /home/$user/post-install.sh
 
 echo 'Done'
