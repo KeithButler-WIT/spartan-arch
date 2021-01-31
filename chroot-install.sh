@@ -95,10 +95,6 @@ permit $user as root" >> /etc/doas.conf
 # Network configuration
 pacman -S --noconfirm networkmanager-runit
 
-# preparing post install
-#wget https://raw.githubusercontent.com/KeithButler-WIT/spartan-artix-runit/master/post-install.sh -O /home/$user/post-install.sh
-#chown $user:$user /home/$user/post-install.sh
-
 # using larbs as post install
 wget https://raw.githubusercontent.com/KeithButler-WIT/LARBS/master/larbs.sh -O post-install.sh
 chown $user:$user /home/$user/post-install.sh
