@@ -9,7 +9,7 @@ This is a set of scripts designed to automate the creation of a minimal VM runni
 - Two shared folders `org` and `workspace` auto-mount and permanent
 
 ## Installation
-Boot the VM on archlinux iso and then run the command
+Boot the VM on artixlinux iso and then run the command
 ```shell
 wget https://bit.ly/3td60IL -O install.sh
 sh install.sh [user] [password] [fast]
