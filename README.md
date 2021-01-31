@@ -12,7 +12,7 @@ This is a set of scripts designed to automate the creation of a minimal VM runni
 Boot the VM on archlinux iso and then run the command
 ```shell
 wget https://bit.ly/3td60IL -O install.sh
-bash install.sh [user] [password] [fast]
+sh install.sh [user] [password] [fast]
 ```
 All arguments are optional and will be prompted for if not passed on invocation:
 - `[user]` is your username
@@ -25,7 +25,7 @@ You want to boot on disk this time and eject the cd from the VM.
 
 Login as your user then run the command
 ```shell
-bash post-install.sh
+sh post-install.sh
 ```
 The script will ask for the root password a couple of times.
 
