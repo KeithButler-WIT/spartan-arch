@@ -92,6 +92,9 @@ permit $user as root" >> /etc/doas.conf
 # enable services
 #systemctl enable ntpdate.service
 
+# Network configuration
+pacman -S --noconfirm networkmanager-runit
+
 # preparing post install
 #wget https://raw.githubusercontent.com/KeithButler-WIT/spartan-artix-runit/master/post-install.sh -O /home/$user/post-install.sh
 #chown $user:$user /home/$user/post-install.sh
