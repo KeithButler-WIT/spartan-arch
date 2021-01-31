@@ -57,10 +57,6 @@ else
 fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# install Xorg
-echo 'Installing Xorg'
-pacman -S --noconfirm xorg xorg-xinit xterm
-
 # check if physical machine
 #pacman -S --noconfirm facter
 #if [facter virtual != 'physical']
