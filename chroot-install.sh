@@ -7,7 +7,7 @@ password=$2
 fast=$3
 
 # setup mirrors
-if [ "$fast" -eq "1"]
+if [ "$fast" -eq "1" ]
 then
     echo 'Setting up mirrors'
     cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
@@ -57,7 +57,7 @@ else
 fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# check if physical machine
+# check if virtual machine
 #pacman -S --noconfirm facter
 #if [facter virtual != 'physical']
 #then
@@ -86,7 +86,8 @@ permit $user as root" >> /etc/doas.conf
 pacman -S --noconfirm networkmanager-runit
 
 # using larbs as post install
-wget https://raw.githubusercontent.com/KeithButler-WIT/LARBS/master/larbs.sh -O post-install.sh
+pacman -S --no-confirm curl
+curl -LO https://raw.githubusercontent.com/KeithButler-WIT/LARBS/master/larbs.sh -O post-install.sh
 chown $user:$user /home/$user/post-install.sh
 
 echo 'Done'

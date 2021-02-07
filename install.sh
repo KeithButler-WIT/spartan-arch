@@ -39,7 +39,8 @@ pacman -S --noconfirm parted
 # partiton disk
 if [ -d /sys/firmware/efi/ ]
 then
-    parted --script /dev/sda mklabel gpt mkpart primary fat32 550MB set bios_grub name BOOT mkpart primary linux-swap 4Gb mkpart primary ext4 100% name ROOT
+    dd if=/dev/zero of=/dev/sda
+    parted --script /dev/sda mklabel gpt mkpart primary fat32 0% 4% set bios_grub name BOOT mkpart primary linux-swap 4% 10% mkpart primary ext4 10% 100% name ROOT
     mkfs.fat -F 32 /dev/sda1
     mkswap /dev/sda2
     swapon /dev/sda2
@@ -50,6 +51,7 @@ then
     mount /dev/sda3 /mnt/home
     mount /dev/sda1 /mnt/boot
 else
+    dd if=/dev/zero of=/dev/sda
     parted --script /dev/sda mklabel msdos mkpart primary ext4 0% 87% mkpart primary linux-swap 87% 100%
     mkfs.ext4 /dev/sda1
     mkswap /dev/sda2
