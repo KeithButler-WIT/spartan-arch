@@ -42,18 +42,22 @@ then
     echo "Uefi partition detected"
     # dd if=/dev/zero of=/dev/sda
 
+    DEV2="/dev/sda"
     echo "=======BEFORE======="
-    sgdisk -p /dev/sda
+    sgdisk -p ${DEV2}
     echo "======CLEARING======"
-    sgdisk -z /dev/sda
-    sgdisk -Z /dev/sda
-    sgdisk -g /dev/sda
+    dd if=/dev/zero of=${DEV2} bs=1M count=100
+    end_position=$(sgdisk -E ${DEV2})
+    sgdisk -z ${DEV2}
+    sgdisk -Z ${DEV2}
+    sgdisk -g ${DEV2}
     echo "======Creating======"
-    sgdisk -n 1:2048:1128447 -c 1:"BOOT" -t 1:ef02 /dev/sda1
-    sgdisk -n 2:128448:9617055 -c 2:"SWAP" -t 2:8200 /dev/sda2
-    sgdisk -n 3:9517056:${sgdisk -E /dev/sda} -c 3:"ROOT" -t 3:8300 /dev/sda3
+    sgdisk -og ${DEV2}
+    sgdisk -n 1:2048:1128447 -c 1:"BOOT" -t 1:ef02 ${DEV2}
+    sgdisk -n 2:128448:9617055 -c 2:"SWAP" -t 2:8200 ${DEV2}
+    sgdisk -n 3:9517056:${end_position} -c 3:"ROOT" -t 3:8300 ${DEV2}
     echo "=======RESULT======="
-    sgdisk -p /dev/sda
+    sgdisk -p ${DEV2}
     
     # parted --script /dev/sda mklabel gpt mkpart primary BOOT fat32 0% 4% set bios_grub mkpart primary SWAP linux-swap 4% 10% mkpart primary ROOTxdvuyl7C4rted ext4 10% 100%
     mkfs.fat -F 32 /dev/sda1
