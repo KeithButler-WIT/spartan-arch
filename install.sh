@@ -75,5 +75,5 @@ wget https://raw.githubusercontent.com/KeithButler-WIT/spartan-artix-runit/maste
 artix-chroot /mnt /bin/bash ./chroot-install.sh $user $password $fast
 
 # reboot
-umount /mnt
+umount -R /mnt
 reboot
