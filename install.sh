@@ -41,7 +41,7 @@ if [ -d /sys/firmware/efi/ ]
 then
     echo "Uefi partition detected"
     dd if=/dev/zero of=/dev/sda
-    parted --script /dev/sda mklabel gpt mkpart primary fat32 0% 4% set bios_grub name BOOT mkpart primary linux-swap 4% 10% mkpart primary ext4 10% 100% name ROOT
+    parted --script /dev/sda mklabel gpt mkpart primary fat32 0% 4% set bios_grub mkpart primary linux-swap 4% 10% mkpart primary ext4 10% 100%
     mkfs.fat -F 32 /dev/sda1
     mkswap /dev/sda2
     swapon /dev/sda2
