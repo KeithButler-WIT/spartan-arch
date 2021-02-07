@@ -58,16 +58,16 @@ fi
 grub-mkconfig -o /boot/grub/grub.cfg
 
 # check if virtual machine
-#pacman -S --noconfirm facter
-#if [facter virtual != 'physical']
-#then
+pacman -S --noconfirm facter
+if [facter virtual != 'physical']
+then
 # install virtualbox guest modules
 echo 'Installing VB-guest-modules'
 pacman -S --noconfirm virtualbox-guest-modules-artix virtualbox-guest-utils
 
 # vbox modules
 echo 'vboxsf' > /etc/modules-load.d/vboxsf.conf
-#fi
+fi
 
 # user mgmt
 echo 'Setting up user'
