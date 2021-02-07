@@ -43,8 +43,8 @@ sed -i 1,39d blockedHosts
 cat blockedHosts >> /etc/hosts
 
 # build
-echo 'Building'
-mkinitcpio -p linux
+# echo 'Building'
+# mkinitcpio -p linux
 
 # install bootloader
 echo 'Installing bootloader'
@@ -59,7 +59,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # check if virtual machine
 pacman -S --noconfirm facter
-if [ facter virtual != 'physical' ]
+if [ ${facter virtual} != 'physical' ]
 then
 # install virtualbox guest modules
 echo 'Installing VB-guest-modules'
@@ -71,7 +71,7 @@ fi
 
 # user mgmt
 echo 'Setting up user'
-read -t 1 -n 1000000 discard      # discard previous input
+read -tr 1 -n 1000000 discard      # discard previous input
 echo 'root:'$password | chpasswd
 useradd -m -G wheel -s /bin/zsh $user
 echo $user:$password | chpasswd
@@ -86,8 +86,7 @@ permit $user as root" >> /etc/doas.conf
 pacman -S --noconfirm networkmanager-runit
 
 # using larbs as post install
-pacman -S --no-confirm curl
-curl -LO https://raw.githubusercontent.com/KeithButler-WIT/LARBS/master/larbs.sh -O post-install.sh
+wget https://raw.githubusercontent.com/KeithButler-WIT/LARBS/master/larbs.sh -O post-install.sh
 chown $user:$user /home/$user/post-install.sh
 
 echo 'Done'

@@ -3,7 +3,7 @@
 if [ -z "$1" ]
 then
     echo "Enter your username: "
-    read user
+    read -r user
 else
     user=$1
 fi
@@ -11,7 +11,7 @@ fi
 if [ -z "$2" ]
 then
     echo "Enter your master password: "
-    read -s password
+    read -r -rs password
 else
     password=$2
 fi
@@ -19,7 +19,7 @@ fi
 if [ -z "$3" ]
 then
     echo "Do you want to skip rankmirrors (faster upfront)? [y/N] "
-    read response
+    read -r response
     if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]
     then
         fast=1
@@ -50,6 +50,9 @@ then
     sgdisk -z ${DEV2}
     sgdisk -Z ${DEV2}
     sgdisk -g ${DEV2}
+    # Possibly need to run
+    # pacman -S multipath-tools
+    # 
     echo "======Creating======"
     sgdisk -og ${DEV2}
     sgdisk -n 1:2048:+550M -c 1:"BOOT" -t 1:ef02 ${DEV2}
@@ -58,7 +61,7 @@ then
     echo "=======RESULT======="
     sgdisk -p ${DEV2}
     
-    # parted --script /dev/sda mklabel gpt mkpart primary BOOT fat32 0% 4% set bios_grub mkpart primary SWAP linux-swap 4% 10% mkpart primary ROOTxdvuyl7C4rted ext4 10% 100%
+    # parted --script /dev/sda mklabel gpt mkpart primary BOOT fat32 0% 4% set bios_grub mkpart primary SWAP linux-swap 4% 10% mkpart primary ROOT ext4 10% 100%
     mkfs.fat -F 32 /dev/sda1
     mkswap /dev/sda2
     swapon /dev/sda2
