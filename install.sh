@@ -39,6 +39,7 @@ pacman -S --noconfirm parted
 # partiton disk
 if [ -d /sys/firmware/efi/ ]
 then
+    echo "Uefi partition detected"
     dd if=/dev/zero of=/dev/sda
     parted --script /dev/sda mklabel gpt mkpart primary fat32 0% 4% set bios_grub name BOOT mkpart primary linux-swap 4% 10% mkpart primary ext4 10% 100% name ROOT
     mkfs.fat -F 32 /dev/sda1
@@ -51,6 +52,7 @@ then
     mount /dev/sda3 /mnt/home
     mount /dev/sda1 /mnt/boot
 else
+    echo "Bios partition detected"
     dd if=/dev/zero of=/dev/sda
     parted --script /dev/sda mklabel msdos mkpart primary ext4 0% 87% mkpart primary linux-swap 87% 100%
     mkfs.ext4 /dev/sda1
