@@ -53,9 +53,9 @@ then
     sgdisk -g ${DEV2}
     echo "======Creating======"
     sgdisk -og ${DEV2}
-    sgdisk -n 1:2048:1005000 -c 1:"BOOT" -t 1:ef02 ${DEV2}
-    sgdisk -n 2:1005001:5005000 -c 2:"SWAP" -t 2:8200 ${DEV2}
-    sgdisk -n 3:5005001:${end_position} -c 3:"ROOT" -t 3:8300 ${DEV2}
+    sgdisk -n 1:2048:+550M -c 1:"BOOT" -t 1:ef02 ${DEV2}
+    sgdisk -n 2:0:+4G -c 2:"SWAP" -t 2:8200 ${DEV2}
+    sgdisk -n 3:0:${end_position} -c 3:"ROOT" -t 3:8300 ${DEV2}
     echo "=======RESULT======="
     sgdisk -p ${DEV2}
     

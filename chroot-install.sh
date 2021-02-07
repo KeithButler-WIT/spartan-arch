@@ -59,7 +59,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 # check if virtual machine
 pacman -S --noconfirm facter
-if [facter virtual != 'physical']
+if [ facter virtual != 'physical' ]
 then
 # install virtualbox guest modules
 echo 'Installing VB-guest-modules'
