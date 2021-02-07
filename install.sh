@@ -34,7 +34,7 @@ fi
 #timedatectl set-ntp true
 
 # partitioning requirements
-pacman -S --noconfirm parted
+pacman -S --noconfirm parted gdisk
 
 # partiton disk
 if [ -d /sys/firmware/efi/ ]
@@ -47,7 +47,6 @@ then
     sgdisk -p ${DEV2}
     echo "======CLEARING======"
     dd if=/dev/zero of=${DEV2} bs=1M count=100
-    end_position=$(sgdisk -E ${DEV2})
     sgdisk -z ${DEV2}
     sgdisk -Z ${DEV2}
     sgdisk -g ${DEV2}
@@ -55,7 +54,7 @@ then
     sgdisk -og ${DEV2}
     sgdisk -n 1:2048:+550M -c 1:"BOOT" -t 1:ef02 ${DEV2}
     sgdisk -n 2:0:+4G -c 2:"SWAP" -t 2:8200 ${DEV2}
-    sgdisk -n 3:0:${end_position} -c 3:"ROOT" -t 3:8300 ${DEV2}
+    sgdisk -n 3:0:0 -c 3:"ROOT" -t 3:8300 ${DEV2}
     echo "=======RESULT======="
     sgdisk -p ${DEV2}
     
