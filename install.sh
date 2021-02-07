@@ -40,8 +40,22 @@ pacman -S --noconfirm parted
 if [ -d /sys/firmware/efi/ ]
 then
     echo "Uefi partition detected"
-    dd if=/dev/zero of=/dev/sda
-    parted --script /dev/sda mklabel gpt mkpart primary fat32 0% 4% set bios_grub mkpart primary linux-swap 4% 10% mkpart primary ext4 10% 100%
+    # dd if=/dev/zero of=/dev/sda
+
+    echo "=======BEFORE======="
+    sgdisk -p /dev/sda
+    echo "======CLEARING======"
+    sgdisk -z /dev/sda
+    sgdisk -Z /dev/sda
+    sgdisk -g /dev/sda
+    echo "======Creating======"
+    sgdisk -n 1:2048:1128447 -c 1:"BOOT" -t 1:ef02 /dev/sda1
+    sgdisk -n 2:128448:9617055 -c 2:"SWAP" -t 2:8200 /dev/sda2
+    sgdisk -n 3:9517056:${sgdisk -E /dev/sda} -c 3:"ROOT" -t 3:8300 /dev/sda3
+    echo "=======RESULT======="
+    sgdisk -p /dev/sda
+    
+    # parted --script /dev/sda mklabel gpt mkpart primary BOOT fat32 0% 4% set bios_grub mkpart primary SWAP linux-swap 4% 10% mkpart primary ROOTxdvuyl7C4rted ext4 10% 100%
     mkfs.fat -F 32 /dev/sda1
     mkswap /dev/sda2
     swapon /dev/sda2
@@ -53,7 +67,7 @@ then
     mount /dev/sda1 /mnt/boot
 else
     echo "Bios partition detected"
-    dd if=/dev/zero of=/dev/sda
+    # dd if=/dev/zero of=/dev/sda
     parted --script /dev/sda mklabel msdos mkpart primary ext4 0% 87% mkpart primary linux-swap 87% 100%
     mkfs.ext4 /dev/sda1
     mkswap /dev/sda2
