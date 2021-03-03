@@ -37,6 +37,6 @@ Once the VM is booted, log in as your user and call `startx` to start Xorg.
 - ssh-keys generation
 - Detect if running in a vm
 - ~Append ad domain name blocker list to /etc/hosts~
-- Change post install to use https://github.com/KeithButler-WIT/LARBS
+- ~Change post install to use https://github.com/KeithButler-WIT/LARBS~
 - nvme0n1 support
 - Fix parted for uefi
