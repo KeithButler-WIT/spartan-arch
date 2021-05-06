@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # This will be ran from the chrooted env.
 
@@ -61,12 +61,12 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S --noconfirm facter
 if [ ${facter virtual} != 'physical' ]
 then
-# install virtualbox guest modules
-echo 'Installing VB-guest-modules'
-pacman -S --noconfirm virtualbox-guest-modules-artix virtualbox-guest-utils
+    # install virtualbox guest modules
+    echo 'Installing VB-guest-modules'
+    pacman -S --noconfirm virtualbox-guest-modules-artix virtualbox-guest-utils
 
-# vbox modules
-echo 'vboxsf' > /etc/modules-load.d/vboxsf.conf
+    # vbox modules
+    echo 'vboxsf' > /etc/modules-load.d/vboxsf.conf
 fi
 
 # user mgmt

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Run install.sh first or this will fail due to missing dependencies
 
@@ -17,7 +17,7 @@
 
 # Enable network daemon
 ln -s /etc/runit/sv/NetworkManager /run/runit/service
-sv up NetworkManager
+sv start NetworkManager
 
 # using larbs as post install
 # wget https://raw.githubusercontent.com/KeithButler-WIT/LARBS/master/larbs.sh -O post-install.sh
